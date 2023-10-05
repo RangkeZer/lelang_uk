@@ -20,7 +20,6 @@
     <div class="login-logo">
       <a href="#"><b>Sistem Lelang Online</b></a>
     </div>
-    <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
         <p class="login-box-msg">Halaman Login Masyarakat</p>

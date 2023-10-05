@@ -1,4 +1,3 @@
-
 <div class="col-lg-12">
   <div class="card">
     <div class="card-header">
@@ -24,24 +23,34 @@
                     <th>Harga</th>
                   </tr>
                 </thead>
+                <tbody>
                  <?php
                  $no = 1;
                  include "../connect.php";
-                 $tb_lelang    =mysqli_query($conn, "SELECT * FROM tb_lelang INNER JOIN tb_barang ON tb_lelang.id_barang=tb_barang.id_barang INNER JOIN tb_petugas ON tb_lelang.id_petugas=tb_petugas.id_petugas");
-                 while($d_tb_lelang = mysqli_fetch_array($tb_lelang)){
-                  $harga_tertinggi = mysqli_query($conn, "select max(penawaran_harga) as penawaran_harga FROM history_lelang where id_lelang='$d_tb_lelang[id_lelang]'");
-                  $harga_tertinggi = mysqli_fetch_array($harga_tertinggi);
-                  $d_harga_tertinggi = $harga_tertinggi['penawaran_harga'];
-                  $pemenang = mysqli_query($conn, "SELECT * FROM history_lelang where penawaran_harga='$harga_tertinggi[penawaran_harga]'");
-                  $d_pemenang = mysqli_fetch_array($pemenang);
-                  $tb_masyarakat = mysqli_query($conn, "SELECT * FROM tb_masyarakat where id_user='$d_pemenang[id_user]'");
-                  $d_tb_masyarakat = mysqli_fetch_array($tb_masyarakat);
-                  ?>
-                  <tr>
-                    <td><?php echo $no++; ?></td>
-                    <td><?=$d_tb_lelang['nama_barang']?></td>
-                    <td><?=$d_tb_masyarakat['nama_lengkap']?></td>
-                    <td>Rp. <?= number_format($d_harga_tertinggi)?></td>
+                 $tb_lelang = mysqli_query($conn, "SELECT * FROM tb_lelang INNER JOIN tb_barang ON tb_lelang.id_barang=tb_barang.id_barang INNER JOIN tb_petugas ON tb_lelang.id_petugas=tb_petugas.id_petugas");
+                 while ($d_tb_lelang = mysqli_fetch_array($tb_lelang)) {
+                     $harga_tertinggi = mysqli_query($conn, "SELECT MAX(penawaran_harga) AS penawaran_harga FROM history_lelang WHERE id_lelang='$d_tb_lelang[id_lelang]'");
+                     $harga_tertinggi = mysqli_fetch_array($harga_tertinggi);
+                     $d_harga_tertinggi = isset($harga_tertinggi['penawaran_harga']) ? $harga_tertinggi['penawaran_harga'] : '-';
+                     $pemenang = mysqli_query($conn, "SELECT * FROM history_lelang WHERE id_lelang='$d_tb_lelang[id_lelang]'");
+                     $d_pemenang = mysqli_fetch_array($pemenang);
+                 
+                     // Check if $d_pemenang is not null and has the 'id_user' key
+                     $id_user = isset($d_pemenang['id_user']) ? $d_pemenang['id_user'] : null;
+                 
+                     // Check if $id_user is not null and fetch masyarakat data
+                     $d_tb_masyarakat = null;
+                     if (!is_null($id_user)) {
+                         $tb_masyarakat = mysqli_query($conn, "SELECT * FROM tb_masyarakat WHERE id_user='$id_user'");
+                         $d_tb_masyarakat = mysqli_fetch_array($tb_masyarakat);
+                     }
+                 ?>
+                     <tr>
+                         <td><?php echo $no++; ?></td>
+                         <td><?= isset($d_tb_lelang['nama_barang']) ? $d_tb_lelang['nama_barang'] : '-' ?></td>
+                         <td><?= isset($d_tb_masyarakat['nama_lengkap']) ? $d_tb_masyarakat['nama_lengkap'] : '-' ?></td>
+                         <td>Rp. <?= isset($d_harga_tertinggi) && $d_harga_tertinggi !== '-' ? number_format($d_harga_tertinggi) : '-' ?></td>
+                     </tr>
                   </tr>
                   <div class="modal fade" id="modal-buka<?php echo $d_tb_lelang['id_lelang'];?>">
                     <div class="modal-dialog">
