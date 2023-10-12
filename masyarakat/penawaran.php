@@ -118,7 +118,6 @@ include '../layouts/navbar_masyarakat.php';
                     <th>Harga Awal</th>
                     <th>Tawaran Harga</th>
                     <th>Status Lelang</th>
-                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

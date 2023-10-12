@@ -104,7 +104,8 @@ include '../layouts/navbar_admin_petugas.php';
                       <td><?=$d_tb_lelang['nama_barang']?></td>
                       <td><?=$d_tb_lelang['tgl_lelang']?></td>
                       <td>
-                        <?php if ($d_tb_lelang['status'] == 'dibuka') { ?>
+                        <?php if ($d_tb_lelang['status'] == '') {
+                          echo ''} ?>
                           -
                         <?php } else { ?>
                           <?php echo isset($d_tb_masyarakat['nama_lengkap']) ? $d_tb_masyarakat['nama_lengkap'] : '-'; ?>
@@ -113,9 +114,9 @@ include '../layouts/navbar_admin_petugas.php';
                       <td>
                       <?php if ($d_tb_lelang['status'] == 'dibuka' || is_null($id_user)) { ?>
                 -
-            <?php } else { ?>
-                Rp. <?= number_format($d_harga_tertinggi) ?>
-            <?php } ?>
+                      <?php } else { ?>
+                          Rp. <?= number_format($d_harga_tertinggi) ?>
+                      <?php } ?>
                       </td>
                       <td>
                         <?php if ($d_tb_lelang['status'] == '') { ?>

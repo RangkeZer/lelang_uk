@@ -1,31 +1,44 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sistem Lelang Online</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-  <!-- Google Font: Source Sans Pro -->
+  <title>Daftar Masyarakat</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
+
+  <!-- Custom styles for this template-->
+  <link href="assets/dist/css/sb-admin-2.min.css" rel="stylesheet">
+
 </head>
-<body class="hold-transition register-page">
-  <div class="register-box">
-    <div class="register-logo">
-      <a href="#"><b>Sistem Lelang Online</b></a>
-    </div>
 
-    <div class="card">
-      <div class="card-body register-card-body">
-        <p class="login-box-msg">Daftar Akun Masyarakat Baru</p>
+<body class="bg-gradient-primary">
 
-        <form action="proses_daftar.php" method="post">
+  <div class="container">
+
+      <div class="row justify-content-center">
+
+    <div class="col-xl-8 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">Selamat Datang!</h1>  <h4 class="h3 text-gray-900 mb-6">Sistem Lelang Online</h4>
+                </div>
+              
+              <form action="proses_daftar.php" method="post">
           <div class="input-group mb-3">
             <input type="text" name="nama_lengkap" class="form-control" placeholder="Nama Lengkap">
             <div class="input-group-append">
@@ -58,19 +71,29 @@
             <button type="submit" class="btn btn-primary btn-block btn-block">Daftar</button>
           </div>
         </form>
+              <div class="mb-0 text-center">
+                    Sudah punya akun?
+                    <a class="text-center" href="index.php">Login</a>
+                  </div>
 
-        <a href="index.php" class="text-center">Sudah Punya Akun Silahkan Login</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- /.form-box -->
-    </div><!-- /.card -->
-  </div>
-  <!-- /.register-box -->
+    </div>
 
-  <!-- jQuery -->
-  <script src="assets/plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
-  <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="assets/dist/js/adminlte.min.js"></script>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
 </body>
+
 </html>
