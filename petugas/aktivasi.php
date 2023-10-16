@@ -104,8 +104,7 @@ include '../layouts/navbar_admin_petugas.php';
                       <td><?=$d_tb_lelang['nama_barang']?></td>
                       <td><?=$d_tb_lelang['tgl_lelang']?></td>
                       <td>
-                        <?php if ($d_tb_lelang['status'] == '') {
-                          echo ''} ?>
+                        <?php if ($d_tb_lelang['status'] == 'dibuka') { ?>
                           -
                         <?php } else { ?>
                           <?php echo isset($d_tb_masyarakat['nama_lengkap']) ? $d_tb_masyarakat['nama_lengkap'] : '-'; ?>

@@ -146,17 +146,14 @@ include '../layouts/navbar_admin_petugas.php';
                                   <i><font color="red">Abaikan jika password tidak di rubah *</font></i>
                                 </div>
                                 <div class="form-group">
-                                  <label>Level</label>
                                   <select name="id_level" class="form-control select2" style="width: 100%;">
-                                    <option disabled selected>--- Pilih Level ---</option>
-                                    <?php
-                                    include "../connect.php";
-                                    $tb_level =mysqli_query($conn, "SELECT * FROM tb_level");
-                                    while($d_tb_level = mysqli_fetch_array($tb_level)){
-                                      ?>
-                                      <option value="<?=$d_tb_level['level']?>" <?php if($d_tb_level['id_level'] == $d_tb_petugas['id_level']){ echo 'selected'; } ?>><?=$d_tb_level['level']?></option>
-                                    <?php } ?>
-                                  </select>
+                                  <label>Level</label>
+                                  <option value="">--- Pilih Level ---</option>
+                                  <option value="1">Admin</option>
+                                  <option value="2">Petugas</option>
+                                </select>
+                                  
+
                                 </div>
                               </div>
                               <div class="modal-footer justify-content-between">
