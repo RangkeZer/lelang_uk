@@ -3,14 +3,6 @@
 include '../layouts/header.php';
 ?>
 
-<!-- /.navbar -->
-
-<!-- Content Wrapper. Contains page content -->
-
-<!-- Content Header (Page header) -->
-<!-- /.content-header -->
-
-<!-- Main content -->
 <div class="content">
   <div class="container">
     <div class="row">
@@ -112,9 +104,9 @@ include '../layouts/header.php';
                           </div>
                         </form>
                       </div>
-                      <!-- /.modal-content -->
+                     
                     </div>
-                    <!-- /.modal-dialog -->
+                   
                   </div>
 
                   <div class="modal fade" id="modal-tutup<?php echo $d_tb_lelang['id_lelang'];?>">
@@ -140,9 +132,8 @@ include '../layouts/header.php';
                           </div>
                         </form>
                       </div>
-                      <!-- /.modal-content -->
+                     
                     </div>
-                    <!-- /.modal-dialog -->
                   </div>
 
                 <?php } ?>
@@ -188,21 +179,18 @@ include '../layouts/header.php';
                     </div>
                   </form>
                 </div>
-                <!-- /.modal-content -->
+               
               </div>
-              <!-- /.modal-dialog -->
+            
             </div>
           </div>
         </div>
       </div>
-      <!-- /.col-md-6 -->
     </div>
-    <!-- /.row -->
-  </div><!-- /.container-fluid -->
+  </div>
 </div>
 <script>
  window.print();
 </script>
-<!-- /.content-wrapper -->
 <?php 
 ?>

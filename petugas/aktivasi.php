@@ -13,7 +13,7 @@ include '../layouts/navbar_admin_petugas.php';
     <div class="container">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0"> Aktivasi Lelang Online</h1>
+          <h1 class="m-0"> Aktivitas Lelang</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         </div><!-- /.col -->
@@ -30,7 +30,7 @@ include '../layouts/navbar_admin_petugas.php';
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Data Aktivasi Lelang Online</h3>
+              <h3 class="card-title">Data Aktivitas Lelang</h3>
 
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -78,44 +78,42 @@ include '../layouts/navbar_admin_petugas.php';
                   </thead>
                   <tbody>
                    <?php
-                   $no = 1;
-                   include "../connect.php";
-                   $tb_lelang = mysqli_query($conn, "SELECT * FROM tb_lelang INNER JOIN tb_barang ON tb_lelang.id_barang=tb_barang.id_barang INNER JOIN tb_petugas ON tb_lelang.id_petugas=tb_petugas.id_petugas ");
-                   
-                   while ($d_tb_lelang = mysqli_fetch_array($tb_lelang)) {
-                       $harga_tertinggi = mysqli_query($conn, "SELECT MAX(penawaran_harga) AS penawaran_harga FROM history_lelang WHERE id_lelang='$d_tb_lelang[id_lelang]'");
-                       $harga_tertinggi = mysqli_fetch_array($harga_tertinggi);
-                       $d_harga_tertinggi = isset($harga_tertinggi['penawaran_harga']) ? $harga_tertinggi['penawaran_harga'] : '-';
-                       $pemenang = mysqli_query($conn, "SELECT * FROM history_lelang WHERE id_lelang='$d_tb_lelang[id_lelang]'");
-                       $d_pemenang = mysqli_fetch_array($pemenang);
-                   
-                       // Check if $d_pemenang is not null and has the 'id_user' key
-                       $id_user = isset($d_pemenang['id_user']) ? $d_pemenang['id_user'] : null;
-                   
-                       // Check if $id_user is not null and fetch masyarakat data
-                       $d_tb_masyarakat = null;
-                       if (!is_null($id_user)) {
-                           $tb_masyarakat = mysqli_query($conn, "SELECT * FROM tb_masyarakat WHERE id_user='$id_user'");
-                           $d_tb_masyarakat = mysqli_fetch_array($tb_masyarakat);
-                       }
+                  $no = 1;
+                  include "../connect.php";
+                  $tb_lelang = mysqli_query($conn, "SELECT * FROM tb_lelang INNER JOIN tb_barang ON tb_lelang.id_barang=tb_barang.id_barang INNER JOIN tb_petugas ON tb_lelang.id_petugas=tb_petugas.id_petugas");
+                  while ($d_tb_lelang = mysqli_fetch_array($tb_lelang)) {
+                    $harga_tertinggi = mysqli_query($conn, "SELECT MAX(penawaran_harga) AS penawaran_harga FROM history_lelang WHERE id_lelang='$d_tb_lelang[id_lelang]'");
+                    $harga_tertinggi = mysqli_fetch_array($harga_tertinggi);
+                    $d_harga_tertinggi = $harga_tertinggi['penawaran_harga'];
+              
+                    // Cek apakah lelang sudah ditutup atau belum
+                    if ($d_tb_lelang['status'] == 'ditutup') {
+                      $pemenang = mysqli_query($conn, "SELECT * FROM history_lelang WHERE id_lelang='$d_tb_lelang[id_lelang]' AND penawaran_harga = $d_harga_tertinggi");
+                      $d_pemenang = mysqli_fetch_array($pemenang);
+                      $tb_masyarakat = mysqli_query($conn, "SELECT * FROM tb_masyarakat WHERE id_user='$d_pemenang[id_user]'");
+                      $d_tb_masyarakat = mysqli_fetch_array($tb_masyarakat);
+                    } else {
+                      $d_pemenang = null;
+                      $d_tb_masyarakat = null;
+                    }
                     ?>
-                    <tr>
-                      <td><?php echo $no++; ?></td>
+                   <tr>
+                      <td><?php echo $no++; ?></td> 
                       <td><?=$d_tb_lelang['nama_barang']?></td>
                       <td><?=$d_tb_lelang['tgl_lelang']?></td>
                       <td>
                         <?php if ($d_tb_lelang['status'] == 'dibuka') { ?>
                           -
                         <?php } else { ?>
-                          <?php echo isset($d_tb_masyarakat['nama_lengkap']) ? $d_tb_masyarakat['nama_lengkap'] : '-'; ?>
+                          <?=$d_tb_masyarakat['nama_lengkap']?>
                         <?php } ?>   
                       </td>
                       <td>
-                      <?php if ($d_tb_lelang['status'] == 'dibuka' || is_null($id_user)) { ?>
-                -
-                      <?php } else { ?>
-                          Rp. <?= number_format($d_harga_tertinggi) ?>
-                      <?php } ?>
+                        <?php if ($d_tb_lelang['status'] == 'dibuka') { ?>
+                          -
+                        <?php } else { ?>
+                          Rp. <?= number_format($d_harga_tertinggi)?>
+                        <?php } ?> 
                       </td>
                       <td>
                         <?php if ($d_tb_lelang['status'] == '') { ?>
@@ -129,7 +127,7 @@ include '../layouts/navbar_admin_petugas.php';
                       <td>
                         <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-buka<?php echo $d_tb_lelang['id_lelang'];?>">Buka Lelang</button>
                         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-tutup<?php echo $d_tb_lelang['id_lelang'];?>">Tutup Lelang</button>
-                      </td>
+                        </td>
                     </tr>
                     <div class="modal fade" id="modal-buka<?php echo $d_tb_lelang['id_lelang'];?>">
                       <div class="modal-dialog">

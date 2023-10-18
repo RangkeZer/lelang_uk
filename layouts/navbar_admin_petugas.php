@@ -7,10 +7,11 @@ if($_SESSION['id_level']==""){
 }
 
 ?>
-<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+<nav class="main-header navbar navbar-expand-md">
   <div class="container">
     <a href="#" class="navbar-brand">
-      <img src="../assets/dist/img/logo.png" a class="brand-image elevation 3" style="opacity: .8">
+    <link rel="stylesheet" href="../assets/dist/css/logo.css">
+      <img src="../assets/dist/img/logo.png" class="logo">
       <span class="brand-text font-weight-light">Sistem Lelang Online</span>
     </a>
 

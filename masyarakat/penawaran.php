@@ -50,6 +50,15 @@ include '../layouts/navbar_masyarakat.php';
                       <b>Harga Awal</b> <a class="float-right">Rp. <?= number_format($d_tb_lelang['harga_awal'])?></a>
                     </li>
                     <li class="list-group-item">
+                      <?php
+                        $id_lelang = $d_tb_lelang['id_lelang'];
+                          $harga_tertinggi = mysqli_query($conn, "SELECT MAX(penawaran_harga) AS penawaran_harga FROM history_lelang WHERE id_lelang='$id_lelang'");
+                          $harga_tertinggi = mysqli_fetch_array($harga_tertinggi);
+                        $d_harga_tertinggi = isset($harga_tertinggi['penawaran_harga']) ? $harga_tertinggi['penawaran_harga'] : '-';
+                       ?>
+                                  <b>Nominal Tertinggi</b> <a class="float-right">Rp. <?= $d_harga_tertinggi ?></a>
+                               </li>
+                    <li class="list-group-item">
                       <b>Deskripsi Barang</b> <a class="float-right"><?=$d_tb_lelang['deskripsi_barang']?></a>
                     </li>              
                   <!--<li class="list-group-item">

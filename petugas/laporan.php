@@ -75,27 +75,43 @@ include '../layouts/navbar_admin_petugas.php';
                   </thead>
                   <tbody>
                    <?php
-                   $no = 1;
-                   include "../connect.php";
-                   $tb_lelang    =mysqli_query($conn, "SELECT * FROM tb_lelang INNER JOIN tb_barang ON tb_lelang.id_barang=tb_barang.id_barang INNER JOIN tb_petugas ON tb_lelang.id_petugas=tb_petugas.id_petugas ");
-                   while($d_tb_lelang = mysqli_fetch_array($tb_lelang)){
-                    $harga_tertinggi = mysqli_query($conn, "select max(penawaran_harga) as penawaran_harga FROM history_lelang where id_lelang='$d_tb_lelang[id_lelang]'");
-                    $harga_tertinggi = mysqli_fetch_array($harga_tertinggi);
-                    $d_harga_tertinggi = $harga_tertinggi['penawaran_harga'];
-                    $pemenang = mysqli_query($conn, "SELECT * FROM history_lelang where id_lelang='$d_tb_lelang[id_lelang]'");
-                    $d_pemenang = mysqli_fetch_array($pemenang);
-                    $tb_masyarakat = mysqli_query($conn, "SELECT * FROM tb_masyarakat where id_user ='$d_pemenang[id_user]'");
-                    $d_tb_masyarakat = mysqli_fetch_array($tb_masyarakat);
-                    ?>
-                    <?php 
-                    if ($d_tb_lelang['status'] == 'dibuka') { ?>
-                    <?php } else { ?>
-                      <tr>
-                        <td><?php echo $no++; ?></td>
+                    $no = 1;
+                    include "../connect.php";
+                    $tb_lelang = mysqli_query($conn, "SELECT * FROM tb_lelang INNER JOIN tb_barang ON tb_lelang.id_barang=tb_barang.id_barang INNER JOIN tb_petugas ON tb_lelang.id_petugas=tb_petugas.id_petugas");
+                    while ($d_tb_lelang = mysqli_fetch_array($tb_lelang)) {
+                      $harga_tertinggi = mysqli_query($conn, "SELECT MAX(penawaran_harga) AS penawaran_harga FROM history_lelang WHERE id_lelang='$d_tb_lelang[id_lelang]'");
+                      $harga_tertinggi = mysqli_fetch_array($harga_tertinggi);
+                      $d_harga_tertinggi = $harga_tertinggi['penawaran_harga'];
+                
+                      // Cek apakah lelang sudah ditutup atau belum
+                      if ($d_tb_lelang['status'] == 'ditutup') {
+                        $pemenang = mysqli_query($conn, "SELECT * FROM history_lelang WHERE id_lelang='$d_tb_lelang[id_lelang]' AND penawaran_harga = $d_harga_tertinggi");
+                        $d_pemenang = mysqli_fetch_array($pemenang);
+                        $tb_masyarakat = mysqli_query($conn, "SELECT * FROM tb_masyarakat WHERE id_user='$d_pemenang[id_user]'");
+                        $d_tb_masyarakat = mysqli_fetch_array($tb_masyarakat);
+                      } else {
+                        $d_pemenang = null;
+                        $d_tb_masyarakat = null;
+                      }
+                      ?>
+                     <tr>
+                        <td><?php echo $no++; ?></td> 
                         <td><?=$d_tb_lelang['nama_barang']?></td>
                         <td><?=$d_tb_lelang['tgl_lelang']?></td>
-                        <td><?=$d_tb_masyarakat['nama_lengkap']?></td>
-                        <td>Rp. <?= number_format($d_harga_tertinggi)?></td>
+                        <td>
+                          <?php if ($d_tb_lelang['status'] == 'dibuka') { ?>
+                            -
+                          <?php } else { ?>
+                            <?=$d_tb_masyarakat['nama_lengkap']?>
+                          <?php } ?>   
+                        </td>
+                        <td>
+                          <?php if ($d_tb_lelang['status'] == 'dibuka') { ?>
+                            -
+                          <?php } else { ?>
+                            Rp. <?= number_format($d_harga_tertinggi)?>
+                          <?php } ?> 
+                        </td>
                         <td>
                           <?php if ($d_tb_lelang['status'] == '') { ?>
                             <div class="btn btn-warning btn-sm">Lelang Belum Aktif</div>
@@ -106,7 +122,6 @@ include '../layouts/navbar_admin_petugas.php';
                           <?php } ?>  
                         </td>
                       </tr>
-                    <?php } ?>
                     <div class="modal fade" id="modal-buka<?php echo $d_tb_lelang['id_lelang'];?>">
                       <div class="modal-dialog">
                         <div class="modal-content">

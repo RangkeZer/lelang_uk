@@ -32,7 +32,7 @@
                      $harga_tertinggi = mysqli_query($conn, "SELECT MAX(penawaran_harga) AS penawaran_harga FROM history_lelang WHERE id_lelang='$d_tb_lelang[id_lelang]'");
                      $harga_tertinggi = mysqli_fetch_array($harga_tertinggi);
                      $d_harga_tertinggi = isset($harga_tertinggi['penawaran_harga']) ? $harga_tertinggi['penawaran_harga'] : '-';
-                     $pemenang = mysqli_query($conn, "SELECT * FROM history_lelang WHERE id_lelang='$d_tb_lelang[id_lelang]'");
+                     $pemenang = mysqli_query($conn, "SELECT * FROM history_lelang WHERE id_lelang='$d_tb_lelang[id_lelang]' AND penawaran_harga='$d_harga_tertinggi'");
                      $d_pemenang = mysqli_fetch_array($pemenang);
                  
                      // Check if $d_pemenang is not null and has the 'id_user' key
@@ -51,7 +51,7 @@
                          <td><?= isset($d_tb_masyarakat['nama_lengkap']) ? $d_tb_masyarakat['nama_lengkap'] : '-' ?></td>
                          <td>Rp. <?= isset($d_harga_tertinggi) && $d_harga_tertinggi !== '-' ? number_format($d_harga_tertinggi) : '-' ?></td>
                      </tr>
-                  </tr>
+                 
                   <div class="modal fade" id="modal-buka<?php echo $d_tb_lelang['id_lelang'];?>">
                     <div class="modal-dialog">
                       <div class="modal-content">

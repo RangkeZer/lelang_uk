@@ -66,7 +66,7 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fff;
+  background-color: #1973bd;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -4320,7 +4320,7 @@ input[type="button"].btn-block {
 }
 
 .nav-tabs {
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #1561ad;
 }
 
 .nav-tabs .nav-link {
@@ -4331,11 +4331,11 @@ input[type="button"].btn-block {
 }
 
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-  border-color: #e9ecef #e9ecef #dee2e6;
+  border-color:#1561ad;
 }
 
 .nav-tabs .nav-link.disabled {
-  color: #6c757d;
+  color: #1561ad;
   background-color: transparent;
   border-color: transparent;
 }
@@ -4343,8 +4343,8 @@ input[type="button"].btn-block {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
+  background-color: #1561ad;
+  border-color: #1561ad;
 }
 
 .nav-tabs .dropdown-menu {
@@ -4820,7 +4820,7 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color:#1561ad;
   background-clip: border-box;
   border: 0 solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
